@@ -55,13 +55,6 @@ app.get('/sessions/connect', function (req, res) {
       } else {
         req.session.oauthRequestToken = oauthToken;
         req.session.oauthRequestTokenSecret = oauthTokenSecret;
-        console.log("Double check on 2nd step");
-        console.log("------------------------");
-        console.log("<<" + req.session.oauthRequestToken);
-        console.log("<<" + req.session.oauthRequestTokenSecret);
-        // res.writeHead(301,
-        //   {Location: "https://twitter.com/oauth/authorize?oauth_token="+req.session.oauthRequestToken}
-        // );
         return res.send("https://twitter.com/oauth/authorize?oauth_token=" + req.session.oauthRequestToken);
       }
     });
@@ -72,10 +65,6 @@ app.get('/sessions/connect', function (req, res) {
 });
 
 app.get('/sessions/callback', function (req, res) {
-  console.log("------------------------");
-  console.log(">>" + req.session.oauthRequestToken);
-  console.log(">>" + req.session.oauthRequestTokenSecret);
-  console.log(">>" + req.query.oauth_verifier);
   consumer.getOAuthAccessToken(req.session.oauthRequestToken, req.session.oauthRequestTokenSecret, req.query.oauth_verifier, function (error, oauthAccessToken, oauthAccessTokenSecret, results) {
     if (error) {
       res.send("Error getting OAuth access token : " + inspect(error) + "[" + oauthAccessToken + "]" + "[" + oauthAccessTokenSecret + "]" + "[" + inspect(result) + "]", 500);
