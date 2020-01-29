@@ -3,8 +3,8 @@ find mutual friends
  GET MUTAUAL FRIEND TWITTER
 
     change token for using your authentication
-    let _twitterConsumerKey = "oS5D6NtOiukMuy9eaytYwVinY";
-     let _twitterConsumerSecret = "zOtFIzMHhT6dh1g9w5hkQzidFK5d7g3SNkionv89rYcHg1bR10";
+    let _twitterConsumerKey = 
+     let _twitterConsumerSecret = 
 
     Install Dependencies:
         npm 
