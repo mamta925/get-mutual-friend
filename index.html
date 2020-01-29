@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="twitterApp">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+</head>
+<body ng-controller="twitterController"> 
+    <h1>Mutual Friends:</h1>
+    <form ng-submit="submitStudentForm()" >
+            <label for="firstId" >First User Id: </label><br />
+            <input type="text" id="firstUser" ng-model="twitter.firstUser" /> <br />
+
+            <label for="lastName">Second User Id: </label><br />
+                <input type="text" id="secondUser" ng-model="twitter.secondUser" /> <br />       
+        <input type="submit" value="Submit" />
+        <input type="reset" ng-click="resetForm()" value="Reset" />
+     
+    </form>
+    <a ng-model= "link" href="{{link}}">{{link}}</a>
+    <script>
+        //1. create app module 
+        var twitterApp = angular.module('twitterApp', []);
+
+        //2. create controller
+        twitterApp.controller("twitterController", function ($scope, $http) {
+  
+            $scope.link = "link";
+            $scope.twitter = {
+                firstUser: 'mamta_rathore_',
+                secondUser: 'gulshan96769603'
+            };
+
+            $scope.submitStudentForm = function () {
+
+                var onSuccess = function (data, status, headers, config) {
+                   $scope.link = data
+                };
+
+                var onError = function (data, status, headers, config) {
+                    alert('Error occured.');
+                }
+
+                $http.get('/sessions/connect?first='+$scope.twitter.firstUser+'&second='+$scope.twitter.secondUser)
+                    .success(onSuccess)
+                    .error(onError);
+
+            };
+
+            //6. create resetForm() function. This will be called on Reset button click.  
+            $scope.resetForm = function () {
+                $scope.student = angular.copy($scope.OriginalStudent);
+            };
+    });
+    </script>    
+</body>
+</html>
